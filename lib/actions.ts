@@ -70,3 +70,18 @@ export const updateContact = async (
   revalidatePath("/contacts");
   redirect("/contacts");
 };
+
+//delet contact
+export const deleteContact = async (id: string) => {
+  try {
+    await prisma.contact.delete({
+      where: {
+        id: id,
+      },
+    });
+  } catch (error) {
+    return { message: "Failed to delete contact" };
+  }
+
+  revalidatePath("/contacts");
+};
